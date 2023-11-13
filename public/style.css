@@ -1,8 +1,91 @@
 body {
   padding-top: 80px;
   word-wrap: break-word;
+  background-image: url(img/chicken-wings-barbecue-sweetly-sour-sauce-picnic-summer-menu-tasty-food-top-view-flat-lay.jpg);
+  /* <a href="https://www.freepik.com/free-photo/chicken-wings-barbecue-sweetly-sour-sauce-picnic-summer-menu-tasty-food-top-view-flat-lay_6713739.htm#query=food&position=1&from_view=search&track=sph">Image by timolina</a> on Freepik */
+  background-size: cover;
+  color: black;
+  font-family: 'Shadows Into Light', cursive;
+}
+
+h1,
+h2,
+h3 {
+  background-color: rgb(71, 150, 81);
+  border-radius: 1rem;
+  border: 2px solid black;
+  padding: 1rem;
+  width: 65%;
+  font-family: 'Shadows Into Light', cursive;
+  font-weight: bold;
+}
+
+.signInBanner {
+  text-align: center;
+  width: 100%;
 }
 
 img {
   height: 200px;
+}
+
+.creditpic {
+  color: white;
+  font-size: 1.25rem;
+
+}
+
+#calNum {
+  width: 20%;
+}
+
+svg {
+  margin: 0 0.5rem;
+}
+
+li {
+  list-style: none;
+  background-color: white;
+  padding: 1rem;
+  border-radius: 1rem;
+  border: 2px solid black;
+  margin: 1rem;
+  font-size: 2rem;
+  font-weight: bold;
+}
+
+.column1 {
+  width: 65%;
+}
+
+input {
+  border-radius: 0.5rem;
+  font-size: 1.75rem;
+}
+
+button {
+  border-radius: 0.5rem;
+}
+
+.form-group label {
+  color: white;
+  background: black;
+  font-size: 1.75rem;
+  border-radius: 1rem;
+  padding: 1rem;
+}
+
+p {
+  color: white;
+  font-size: 1.75rem;
+  background: black;
+  width: 30%;
+  border-radius: 1rem;
+  padding: 1rem;
+}
+
+.jumbotron {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
 }

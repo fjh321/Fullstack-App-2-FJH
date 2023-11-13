@@ -1,70 +1,90 @@
-var thumbUp = document.getElementsByClassName("fa-thumbs-up");
-var thumbDown = document.getElementsByClassName("fa-thumbs-down");
-var trash = document.getElementsByClassName("fa-trash");
 
-Array.from(thumbUp).forEach(function (element) {
+const deleteButton = document.getElementsByClassName("deleteButton");
+const upArrow = document.getElementsByClassName('upArrow')
+const downArrow = document.getElementsByClassName('downArrow')
+
+Array.from(upArrow).forEach(function (element) {
   element.addEventListener('click', function () {
-    const name = this.parentNode.parentNode.childNodes[1].innerText
-    const msg = this.parentNode.parentNode.childNodes[3].innerText
-    const thumbUp = parseFloat(this.parentNode.parentNode.childNodes[5].innerText)
+    const foodListing = this.closest('li').childNodes[1].innerText//text of each food listing
+    const calories = this.closest('li').childNodes[3].innerText
+    const upArrow = parseFloat(this.closest('li').childNodes[5].innerText)
+    console.log(upArrow)
     fetch('messages', {
       method: 'put',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({
-        'name': name,
-        'msg': msg,
-        'thumbUp': thumbUp
+        'foodListing': foodListing,
+        'calories': calories,
+        'upArrow': upArrow,
+        '$currentDate': { 'lastUpdated': true }
       })
     })
       .then(response => {
         if (response.ok) return response.json()
       })
       .then(data => {
-        console.log(data)
+        // console.log(data)
         window.location.reload(true)
       })
   });
 });
 
-Array.from(thumbDown).forEach(function (element) {
+Array.from(downArrow).forEach(function (element) {
   element.addEventListener('click', function () {
-    const name = this.parentNode.parentNode.childNodes[1].innerText
-    const msg = this.parentNode.parentNode.childNodes[3].innerText
-    const thumbDown = parseFloat(this.parentNode.parentNode.childNodes[5].innerText)
+    const foodListing = this.closest('li').childNodes[1].innerText//text of each food listing
+    const calories = this.closest('li').childNodes[3].innerText
+    const downArrow = parseFloat(this.closest('li').childNodes[5].innerText)
+    // const quantity = this.closest('li').childNodes[5].innerText
+    // console.log(quantity)
+    console.log(downArrow)
     fetch('messages', {
       method: 'put',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({
-        'name': name,
-        'msg': msg,
-        'thumbDown': thumbDown
+        'foodListing': foodListing,
+        'calories': calories,
+        'downArrow': downArrow,
+        '$currentDate': { 'lastUpdated': true } // Using $currentDate to update 'lastUpdated' field
       })//connected with the app.put, which in turn dives into the db collection and parses through messages.
     })
       .then(response => {
         if (response.ok) return response.json()
       })
       .then(data => {
-        console.log(data)
+        // console.log(data)
         window.location.reload(true) //reloads the page which triggers our app.get
       })
   });
 });
 
-Array.from(trash).forEach(function (element) {
+
+
+
+
+Array.from(deleteButton).forEach(function (element) {
   element.addEventListener('click', function () {
-    const name = this.parentNode.parentNode.childNodes[1].innerText
-    const msg = this.parentNode.parentNode.childNodes[3].innerText
+    const foodListing = this.closest('li').childNodes[1].innerText//text of each food listing
+    const calories = this.closest('li').childNodes[3].innerText
+    const downArrow = parseFloat(this.closest('li').childNodes[5].innerText)
+    const upArrow = parseFloat(this.closest('li').childNodes[5].innerText)
+    console.log(foodListing)
+    console.log(calories)
+
     fetch('messages', {
       method: 'delete',
       headers: {
         'Content-Type': 'application/json'
       },
       body: JSON.stringify({
-        'name': name,
-        'msg': msg
+        'foodListing': foodListing,
+        'calories': calories,
+        'upArrow': upArrow,
+        'downArrow': downArrow
+
       })
     }).then(function (response) {
       window.location.reload()
     })
   });
 });
+

@@ -12,13 +12,11 @@ module.exports = function (app, passport, db) {
     db.collection('messages').find().toArray((err, result) => {
       console.log(result)
 
-      let sortedResult = result.sort((a, b) => (b.thumbUp - b.thumbDown) - (a.thumbUp - a.thumbDown))
-      console.log(sortedResult)
 
       if (err) return console.log(err)
       res.render('profile.ejs', {
         user: req.user,
-        messages: sortedResult
+        messages: result
       })
     })
   });
@@ -31,12 +29,10 @@ module.exports = function (app, passport, db) {
     res.redirect('/');
   });
 
-  // message board routes ===============================================================
-  ////////////////////////////////////////////////////////////////////////////////////////////////////////
 
   app.post('/messages', (req, res) => {
     console.log(req.body)
-    db.collection('messages').insertOne({ name: req.body.name, msg: req.body.msg, thumbUp: 0, thumbDown: 0 }, (err, result) => {//insertOne is inserting the object with the fields that we select from the req.body, which was the info submitted by the user. req.body field names come from ths name attributes of the inputs inside the form element in our index.ejs.
+    db.collection('messages').insertOne({ foodListing: req.body.foodListing, calories: req.body.calories, upArrow: 1, downArrow: 0 }, (err, result) => {//insertOne is inserting the object with the fields that we select from the req.body, which was the info submitted by the user. req.body field names come from ths name attributes of the inputs inside the form element in our index.ejs.
       if (err) return console.log(err)
       console.log('saved to database')
       console.log(result)
@@ -46,10 +42,11 @@ module.exports = function (app, passport, db) {
 
 
   app.put('/messages', (req, res) => {
-    const upOrDown = req.body.hasOwnProperty('thumbDown') ? 'thumbDown' : 'thumbUp'
+    const upOrDown = req.body.hasOwnProperty('upArrow') ? 'upArrow' : 'downArrow'
+    console.log("body:", req.body, "upOrDown:", upOrDown)
     db.collection('messages')
-      .findOneAndUpdate({ name: req.body.name, msg: req.body.msg }, {
-        $inc: { //$sets something from the database and the code below allows us to SET the thumbs up to its value plus one. but I used increment here ($inc) instead. 
+      .findOneAndUpdate({ foodListing: req.body.foodListing }, {
+        $inc: {
           [upOrDown]: 1,
         },
       }, {
@@ -63,11 +60,29 @@ module.exports = function (app, passport, db) {
         })
   })
 
+
+  app.put('/moveToSecondList', (req, res) => {
+
+    const foods = req.body.foods; //foods coming from frontend
+    const listTwoItems = [];
+
+    items.forEach(item => {
+      if (item.quantity > 1) {
+        listTwoItems.push(foods);
+
+      }
+    });
+
+    // sending list back to front endS
+    res.send({ listTwoItems });
+  });
+
+
   ////////////////////////////////////////////////////////////////////////////////////////////
 
 
   app.delete('/messages', (req, res) => {
-    db.collection('messages').findOneAndDelete({ name: req.body.name, msg: req.body.msg }, (err, result) => {
+    db.collection('messages').findOneAndDelete({ foodListing: req.body.foodListing, calories: req.body.calories }, (err, result) => {
       if (err) return res.send(500, err)
       res.send('Message deleted!')
     })
