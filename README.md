@@ -1,6 +1,6 @@
-<img width="730" alt="image" src="https://github.com/fjh321/Fullstack-App-2-FJH/assets/64885403/35f7836a-27e0-41fb-80c3-a1101bfd2750">
-
 ## Fullstack APP 2
+
+<img width="730" alt="image" src="https://github.com/fjh321/Fullstack-App-2-FJH/assets/64885403/35f7836a-27e0-41fb-80c3-a1101bfd2750">
 
 For this project I wanted to create a food journal that would keep track of the servings people ate in a given day. I wanted to build something that a user could implement as a way of checking if they ate more than they had planned for a given meal (i.e. more than two servings although my code could be changed to a lower or higher threshold). 
 
